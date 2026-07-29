@@ -182,7 +182,7 @@
       <p class="kicker">How money works, for curious kids</p>
       <img class="hero-mark" src="icon.png" alt="Vitta logo" width="112" height="112">
       <h1 class="wordmark">Vitta</h1>
-      <p class="pron"><span class="pron-say">vit·tuh</span><button class="pron-btn" id="pronBtn" type="button" hidden aria-label="Hear how to say Vitta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17.5 8.5a5 5 0 0 1 0 7"/><path d="M20 6a9 9 0 0 1 0 12"/></svg></button></p>
+      <p class="pron"><span class="pron-say">vit·ta</span><button class="pron-btn" id="pronBtn" type="button" hidden aria-label="Hear how to say Vitta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17.5 8.5a5 5 0 0 1 0 7"/><path d="M20 6a9 9 0 0 1 0 12"/></svg></button></p>
       <p class="tagline">Vibe, Value &amp; Virtue of Money</p>
       <p class="lead">Money a child can <span class="g">pick up and move</span>. Every lab is a workbench — <span class="y">drops</span> get earned, split between spending, saving and sharing, then the week actually plays out and the consequences arrive on their own.</p>
       <p class="sub"><b>Vitta</b> — <i>meaning wealth, money, finance</i> — starts before money existed and ends with owning a slice of a real business. <b>Nothing is ever scored.</b> The grown-up word arrives only after a child has already felt the thing it names.</p>
@@ -316,7 +316,7 @@
     (function(){
       var btn = document.getElementById("pronBtn");
       if(!btn || !window.speechSynthesis) return;
-      var KN = "ವಿತ್ತ", SAY = "vit·tuh";
+      var KN = "ವಿತ್ತ", SAY = "vit·ta";
       function pick(){
         var v = speechSynthesis.getVoices() || [];
         for(var i=0;i<v.length;i++) if(v[i].lang && v[i].lang.indexOf("kn") === 0) return {v:v[i], kn:true};
