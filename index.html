@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vitta — how money works</title>
+<meta name="description" content="Vitta is a private financial-literacy app for curious kids. Money you can pick up: every lab is a workbench where drops get earned, split, saved, spent and grown — and consequences arrive on their own. Nothing is scored. Three chapters from why money exists to owning a slice of a business. Offline, ad-free, no AI. Sign in with Google to start.">
+<meta name="theme-color" content="#0F1233" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F5FF" media="(prefers-color-scheme: light)">
+<meta property="og:title" content="Vitta — how money works">
+<meta property="og:description" content="Money a child can pick up and move. Every lab is a workbench, nothing is scored, and the grown-up word arrives only after they've felt the thing it names. Sign in with Google to start.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Palette lifted from the APP's own :root / :root[data-theme="light"], so the page matches the thing
+     it advertises. Vitta's logo is navy + gold + sage, and the app deliberately lets SAGE lead (growth,
+     the ecosystem) with gold as the money note — otherwise it reads as a Rahasya reskin. The primary
+     button follows the app's --accent-fill exactly: gold on dark, sage on light. */
+  :root{
+    --bg-deep:#0F1233; --bg-mid:#161A47; --gold:#F4C14E; --gold-soft:#f7d078;
+    --sage:#8FD1A0; --water:#5BC8E8; --warm:#F2A65A; --rose:#F0705A;
+    --ink:#EAF0FF; --muted:#9AA4D8; --card:#161A47; --line:rgba(255,255,255,.10);
+    --grad:#172a4a; --accent-fill:#F4C14E; --accent-ink:#0F1233;
+    --soft:rgba(255,255,255,.05); --soft2:rgba(255,255,255,.02); --soft-h:rgba(255,255,255,.09);
+    --chip-bg:rgba(143,209,160,.10); --chip-bd:rgba(143,209,160,.32);
+    --shadow:rgba(0,0,0,.45); --glow:rgba(244,193,78,.28); --glow-h:rgba(244,193,78,.36);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      color-scheme: light;
+      --bg-deep:#F3F5FF; --bg-mid:#FFFFFF; --grad:#FFFFFF;
+      --gold:#96631A; --gold-soft:#8A5A00; --accent-fill:#2E9A5E; --accent-ink:#FFFFFF;
+      --sage:#2E9A5E; --water:#1F7F9C; --warm:#C2691F; --rose:#D6472C;
+      --ink:#171B45; --muted:#5A6296; --card:#FFFFFF; --line:rgba(24,24,64,.12);
+      --soft:rgba(24,24,64,.045); --soft2:rgba(24,24,64,.025); --soft-h:rgba(24,24,64,.08);
+      --chip-bg:rgba(46,154,94,.10); --chip-bd:rgba(46,154,94,.32);
+      --shadow:rgba(30,40,90,.16); --glow:rgba(46,154,94,.24); --glow-h:rgba(46,154,94,.32);
+    }
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --bg-deep:#F3F5FF; --bg-mid:#FFFFFF; --grad:#FFFFFF;
+    --gold:#96631A; --gold-soft:#8A5A00; --accent-fill:#2E9A5E; --accent-ink:#FFFFFF;
+    --sage:#2E9A5E; --water:#1F7F9C; --warm:#C2691F; --rose:#D6472C;
+    --ink:#171B45; --muted:#5A6296; --card:#FFFFFF; --line:rgba(24,24,64,.12);
+    --soft:rgba(24,24,64,.045); --soft2:rgba(24,24,64,.025); --soft-h:rgba(24,24,64,.08);
+    --chip-bg:rgba(46,154,94,.10); --chip-bd:rgba(46,154,94,.32);
+    --shadow:rgba(30,40,90,.16); --glow:rgba(46,154,94,.24); --glow-h:rgba(46,154,94,.32);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; background:var(--bg-deep);}
+  body{
+    margin:0; font-family:Inter, system-ui, sans-serif; color:var(--ink);
+    background:radial-gradient(1200px 700px at 50% -10%, var(--grad), var(--bg-deep) 62%);
+    background-attachment:fixed; min-height:100vh; line-height:1.55;
+  }
+  a{color:var(--gold); text-decoration:none;}
+  .wrap{max-width:960px; margin:0 auto; padding:0 20px;}
+
+  /* Hero */
+  .hero{text-align:center; padding:70px 20px 40px;}
+  .hero-mark{width:112px; height:112px; border-radius:26px; display:block; margin:0 auto 16px; box-shadow:0 12px 34px var(--shadow);}
+  .kicker{font-size:13px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 14px;}
+  .wordmark{font-family:'Baloo 2', sans-serif; font-weight:800; font-size:clamp(40px, 8.5vw, 76px);
+    color:var(--gold); line-height:1.02; margin:0; letter-spacing:.5px;}
+  .tagline{font-family:'Baloo 2', sans-serif; font-weight:700; font-size:clamp(17px, 3vw, 23px); color:var(--ink); margin:10px 0 0;}
+  .lead{font-size:clamp(16px, 2.3vw, 20px); color:var(--ink); max-width:670px; margin:16px auto 0;}
+  .lead .g{color:var(--sage); font-weight:700;} .lead .y{color:var(--gold); font-weight:700;}
+  .sub{color:var(--muted); max-width:625px; margin:12px auto 0; font-size:15.5px;}
+  .sub b{color:var(--gold-soft); font-weight:700;}
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:28px;}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:16px;
+    padding:15px 26px; border-radius:14px; border:1px solid transparent; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;}
+  .btn-primary{background:var(--accent-fill); color:var(--accent-ink); box-shadow:0 10px 30px var(--glow);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px var(--glow-h);}
+  .btn-ghost{background:var(--soft); color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{background:var(--soft-h);}
+  .chips-row{display:flex; flex-wrap:wrap; gap:9px; justify-content:center; margin-top:22px;}
+  .chip{display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px;
+    background:var(--chip-bg); border:1px solid var(--chip-bd); color:var(--sage); font-size:13px; font-weight:600;}
+
+  /* Sticky top strip — mirrors the sibling landing pages. */
+  .topbar{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+    background:color-mix(in srgb, var(--bg-deep) 80%, transparent); border-bottom:1px solid var(--line);}
+  .topbar .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0;}
+  .mark{display:flex; align-items:center; gap:10px; font-family:'Baloo 2', sans-serif;
+    font-weight:800; font-size:18px; color:var(--ink);}
+  .mark img{width:34px; height:34px; border-radius:9px;}
+  .mark-text{display:flex; flex-direction:column; line-height:1.15; min-width:0;}
+  .mark-sub{font-family:Inter, system-ui, sans-serif; font-weight:600; font-size:11.5px;
+    color:var(--muted); letter-spacing:.1px;}
+  .bar-actions{display:flex; align-items:center; gap:10px;}
+  .tbtn{border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer;
+    width:38px; height:38px; border-radius:11px; font-size:16px; display:grid; place-items:center;}
+  .tbtn:hover{border-color:var(--sage);}
+  .topbar .btn{font-size:14.5px; padding:10px 18px; border-radius:12px;}
+  .btn:focus-visible, .tbtn:focus-visible{outline:3px solid var(--sage); outline-offset:2px;}
+  @media (max-width:460px){
+    .mark{font-size:15px;} .mark img{width:28px; height:28px;}
+    .topbar .btn{font-size:13px; padding:9px 13px;}
+  }
+
+  /* Sections */
+  section{padding:26px 0;}
+  h2{font-family:'Baloo 2', sans-serif; font-size:26px; text-align:center; margin:8px 0 6px;}
+  .section-sub{text-align:center; color:var(--muted); margin:0 auto 26px; max-width:640px; font-size:15px;}
+
+  .steps{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .step{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 18px; text-align:center;}
+  .step .n{font-family:'Baloo 2',sans-serif; font-weight:800; font-size:15px; color:var(--accent-ink); background:var(--accent-fill);
+    width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 12px;}
+  .step h3{font-family:'Baloo 2', sans-serif; font-size:17px; margin:0 0 6px;}
+  .step p{margin:0; color:var(--muted); font-size:14px;}
+
+  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;}
+  .feat{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px 18px;}
+  .feat .i{font-size:26px; display:block; margin-bottom:10px;}
+  .feat h3{font-family:'Baloo 2', sans-serif; font-size:17px; margin:0 0 6px;}
+  .feat p{margin:0; color:var(--muted); font-size:14px;}
+
+  /* The ladder. Vitta's own home has NO numbering and NO locks — a child picks whatever sounds
+     interesting — so this mirrors that: three named chapters, no rung numbers, no "locked" state. */
+  .chap{margin-bottom:20px;}
+  .chap-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:0 0 11px; padding-bottom:8px;
+    border-bottom:1px solid var(--line);}
+  .chap-head h3{font-family:'Baloo 2', sans-serif; font-size:19px; margin:0; color:var(--sage);}
+  .chap-head span{color:var(--muted); font-size:13.5px;}
+  .labs{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px;}
+  .lab{display:flex; align-items:center; gap:11px; background:var(--soft); border:1px solid var(--line);
+    border-radius:14px; padding:11px 13px; min-width:0;}
+  .lab .i{flex:none; width:32px; height:32px; display:grid; place-items:center; border-radius:9px;
+    color:var(--sage); background:var(--chip-bg);}
+  .lab .i svg{width:20px; height:20px;}
+  .lab .t{min-width:0; display:flex; flex-direction:column; line-height:1.25;}
+  .lab .t b{font-weight:600; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .lab .t span{font-size:12px; color:var(--muted);}
+
+  /* Access callout */
+  .access{background:linear-gradient(180deg, var(--soft), var(--soft2));
+    border:1px solid var(--line); border-radius:20px; padding:34px 26px; text-align:center; margin:10px 0 4px;}
+  .access h2{margin-top:0;}
+  .access p{color:var(--muted); max-width:580px; margin:0 auto 20px; font-size:15.5px;}
+
+  footer{text-align:center; color:var(--muted); font-size:12.5px; padding:34px 20px 46px; line-height:1.7;}
+  footer .disc{max-width:660px; margin:8px auto 0; opacity:.8;}
+  footer .fam{margin-top:10px;}
+
+  @media (max-width:720px){ .grid, .steps{grid-template-columns:1fr 1fr;} .labs{grid-template-columns:1fr 1fr;} }
+  @media (max-width:460px){ .grid, .steps{grid-template-columns:1fr;} .hero{padding-top:52px;}
+    .labs{grid-template-columns:1fr;} }
+
+  /* Pronunciation — the names are Kannada/Sanskrit and get read wrong on sight. Respelling first
+     (that part always works), speaker second (hidden entirely unless a suitable voice exists). */
+  .pron{display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap;
+    margin:2px 0 12px; font-size:14px;}
+  .pron-say{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px;
+    color:var(--gold); letter-spacing:.02em;}
+  .pron-btn{display:inline-grid; place-items:center; width:26px; height:26px; padding:0;
+    border-radius:8px; border:1px solid var(--line); background:transparent; color:var(--muted);
+    cursor:pointer; transition:color .15s, border-color .15s;}
+  .pron-btn:hover, .pron-btn.saying{color:var(--gold); border-color:var(--gold);}
+  .pron-btn svg{width:15px; height:15px;}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap row">
+      <div class="mark"><img src="icon.png" alt="" width="34" height="34"><span class="mark-text">Vitta<span class="mark-sub">How Money Works</span></span></div>
+      <div class="bar-actions">
+        <button class="tbtn" id="themeToggle" type="button" aria-label="Switch light or dark theme" title="Switch theme">◐</button>
+        <a class="btn btn-primary" href="https://vitta-dhaara.web.app">Enter the app →</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">How money works, for curious kids</p>
+      <img class="hero-mark" src="icon.png" alt="Vitta logo" width="112" height="112">
+      <h1 class="wordmark">Vitta</h1>
+      <p class="pron"><span class="pron-say">vit·tuh</span><button class="pron-btn" id="pronBtn" type="button" hidden aria-label="Hear how to say Vitta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17.5 8.5a5 5 0 0 1 0 7"/><path d="M20 6a9 9 0 0 1 0 12"/></svg></button></p>
+      <p class="tagline">Vibe, Value &amp; Virtue of Money</p>
+      <p class="lead">Money a child can <span class="g">pick up and move</span>. Every lab is a workbench — <span class="y">drops</span> get earned, split between spending, saving and sharing, then the week actually plays out and the consequences arrive on their own.</p>
+      <p class="sub"><b>Vitta</b> — <i>meaning wealth, money, finance</i> — starts before money existed and ends with owning a slice of a real business. <b>Nothing is ever scored.</b> The grown-up word arrives only after a child has already felt the thing it names.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://vitta-dhaara.web.app">Enter Vitta →</a>
+        <a class="btn btn-ghost" href="#access">Getting started</a>
+      </div>
+      <div class="chips-row">
+        <span class="chip">🔑 Sign in with Google</span>
+        <span class="chip">✈️ Works offline</span>
+        <span class="chip">🤖 No AI · nothing random</span>
+        <span class="chip">🚫 No ads · no tracking</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>How a lab works</h2>
+      <p class="section-sub">Not a lesson with a quiz on the end. A bench with things on it that a child moves, and a result that answers back.</p>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Do the thing</h3><p>Split a week's drops between three gates. Price your own stall. Buy a slice of a bakery. The decision is made with your hands, not by picking A, B or C.</p></div>
+        <div class="step"><div class="n">2</div><h3>Live with it</h3><p>Then the week runs, or the seasons pass, and your choice arrives back as an outcome. Nobody marks it right or wrong — it simply happens, the way money does.</p></div>
+        <div class="step"><div class="n">3</div><h3>Learn what it's called</h3><p>Only now does the real word appear: <i>opportunity cost</i>, <i>compounding</i>, <i>volatility</i>. A name for something already felt sticks; a definition learned first does not.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why it helps</h2>
+      <div class="grid">
+        <div class="feat"><span class="i">💧</span><h3>Everything is drops</h3><p>One honest unit all the way through, so no lab is really about rupees or dollars. A child who has moved drops can move any currency later.</p></div>
+        <div class="feat"><span class="i">🧪</span><h3>A workbench, not a quiz</h3><p><b>Nothing is ever scored.</b> There's no streak to protect and no wrong answer to be caught by — which is exactly what makes it safe to try the reckless option and watch what it costs.</p></div>
+        <div class="feat"><span class="i">🌱</span><h3>The values are built in, never preached</h3><p>Sharing is a real gate that moves real drops, not a sticker for being nice. Helping at home earns nothing — because it's your home — and the app says so plainly.</p></div>
+        <div class="feat"><span class="i">🎯</span><h3>Honest about the hard parts</h3><p>A business can fail and take your drops with it. Borrowing costs more the slower you repay. A price falling tells you nothing on its own. None of it is softened.</p></div>
+        <div class="feat"><span class="i">🏡</span><h3>Screen time, your call</h3><p>Optional parent controls: a profile for each child, a daily limit from 15 minutes to 2 hours behind your PIN, and a list of recent sessions.</p></div>
+        <div class="feat"><span class="i">✈️</span><h3>Private &amp; offline</h3><p>Ad-free, no tracking, and every lab is stored on the device so it all works with no connection. Nothing a child does in a lab leaves their browser.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The ladder</h2>
+      <p class="section-sub">Three chapters, from why money had to be invented to what a share in a business really is. <b>Every lab here is built and playable</b> — and there are no locks, so a child starts wherever it looks interesting.</p>
+
+      <div class="chap">
+        <div class="chap-head"><h3>What money is</h3><span>Where it came from, and what makes it work at all.</span></div>
+        <div class="labs">
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h13.5M13.8 5.3 17 8.5l-3.2 3.2"/><path d="M20.5 15.5H7M10.2 12.3 7 15.5l3.2 3.2"/></svg></span><span class="t"><b>Before Money</b><span>why money exists</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 3.8v2.6M12 17.6v2.6M3.8 12h2.6M17.6 12h2.6"/></svg></span><span class="t"><b>What Makes It Money?</b><span>what counts as money</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M3.6 12h16.8"/><path d="M12 3.6c2.3 2.4 3.5 5.3 3.5 8.4s-1.2 6-3.5 8.4c-2.3-2.4-3.5-5.3-3.5-8.4S9.7 6 12 3.6z"/></svg></span><span class="t"><b>Money Around the World</b><span>currencies</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5h9.5M11 5l2.5 2.5L11 10"/><path d="M20 16.5h-9.5M13 14l-2.5 2.5L13 19"/><circle cx="18.4" cy="7.5" r="2.1"/><circle cx="5.6" cy="16.5" r="2.1"/></svg></span><span class="t"><b>Worth Over There</b><span>exchange rates</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.6 8.6h8.8l2.2 4H5.4z"/><path d="M5.4 12.6h13.2v4.6H5.4z"/><path d="M9.6 8.6 10.4 6h3.2l.8 2.6"/></svg></span><span class="t"><b>Gold &amp; the Broken Promise</b><span>trust</span></span></div>
+        </div>
+      </div>
+
+      <div class="chap">
+        <div class="chap-head"><h3>Looking after it</h3><span>Earning, choosing, saving, and what every yes costs.</span></div>
+        <div class="labs">
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4.4"/><path d="M12 7.4 5.4 12.6M12 7.4l6.6 5.2M12 7.4v5.2"/><rect x="2.8" y="12.8" width="5" height="7.4" rx="1.3"/><rect x="9.5" y="12.8" width="5" height="7.4" rx="1.3"/><rect x="16.2" y="12.8" width="5" height="7.4" rx="1.3"/></svg></span><span class="t"><b>Earn &amp; the Three Gates</b><span>budgeting</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 5.4h2.3l2.2 9.4h9.5l2-6.6H6.6"/><circle cx="9.4" cy="18.7" r="1.5"/><circle cx="16.4" cy="18.7" r="1.5"/></svg></span><span class="t"><b>Need or Want?</b><span>choosing</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M6.8 3.8h10.4l-1 5.2H7.8z"/><path d="M7.8 9c-1.9 1.3-3 3.4-3 5.7 0 3.4 3.2 5.9 7.2 5.9s7.2-2.5 7.2-5.9c0-2.3-1.1-4.4-3-5.7"/><path d="M7.6 15.4c1.4 0 1.4 1.3 2.9 1.3s1.4-1.3 2.9-1.3 1.4 1.3 2.9 1.3"/></svg></span><span class="t"><b>Fill the Reservoir</b><span>saving</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14.2a3.9 3.9 0 0 1 .5-7.8 5.3 5.3 0 0 1 10 1.4 3.7 3.7 0 0 1 .6 6.4"/><path d="m12.8 13.4-2.4 4h3.2l-2.2 3.8"/></svg></span><span class="t"><b>The Storm</b><span>emergencies</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 10.6V20h15.2v-9.4"/><path d="M2.6 5h18.8l1.2 5.2H1.4z"/><path d="M9.6 20v-5.2h4.8V20"/></svg></span><span class="t"><b>Your Own Stall</b><span>earning</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.6V20M8 20h8"/><path d="M4.4 8.2h15.2"/><path d="M4.4 8.2 2 13.4a2.6 2.6 0 0 0 4.8 0zM19.6 8.2l-2.4 5.2a2.6 2.6 0 0 0 4.8 0z"/></svg></span><span class="t"><b>The Trade-Off Scale</b><span>opportunity cost</span></span></div>
+        </div>
+      </div>
+
+      <div class="chap">
+        <div class="chap-head"><h3>Growing it</h3><span>Time, community, borrowing, and owning a slice.</span></div>
+        <div class="labs">
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.2v-7.4"/><path d="M12 12.8c0-2.8 2-4.9 4.7-4.9 0 2.8-2 4.9-4.7 4.9z"/><path d="M12 13.4c0-2.8-2-4.9-4.7-4.9 0 2.8 2 4.9 4.7 4.9z"/><path d="M4.6 20.2h14.8"/></svg></span><span class="t"><b>The Enchanted Soil</b><span>compounding</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8.4" r="2.7"/><circle cx="16" cy="8.4" r="2.7"/><path d="M2.8 18.4c0-2.9 2.3-4.8 5.2-4.8s5.2 1.9 5.2 4.8"/><path d="M10.8 18.4c0-2.9 2.3-4.8 5.2-4.8s5.2 1.9 5.2 4.8"/></svg></span><span class="t"><b>The Village Pool</b><span>community</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 9.4c4.2 0 4.2 5.2 9.6 5.2s5.4-5.2 9.6-5.2"/><path d="M2.4 9.4v9.2M21.6 9.4v9.2M12 14.6v4M7 12.2v6.4M17 12.2v6.4"/></svg></span><span class="t"><b>The Bridge with a Toll</b><span>borrowing</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.2h10M7 20.8h10"/><path d="M8 3.2c0 4 4 4.9 4 8.8s-4 4.8-4 8.8"/><path d="M16 3.2c0 4-4 4.9-4 8.8s4 4.8 4 8.8"/></svg></span><span class="t"><b>Future You</b><span>planning early</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M12 12V3.6M12 12l7.3 4.2"/></svg></span><span class="t"><b>Own a Slice</b><span>investing</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 19.4h17.2"/><path d="M4.6 15.4 9 10.6l3.4 3 5.8-6.6"/><path d="M14.6 6.4h4v4"/></svg></span><span class="t"><b>Patience Beats Panic</b><span>markets</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Inside a lab</h2>
+      <p class="section-sub">Take <b>Earn &amp; the Three Gates</b> — what a child actually does, and why it's shaped that way.</p>
+      <div class="grid">
+        <div class="feat"><span class="i">🚪</span><h3>Three gates, one week's drops</h3><p>Everything earned has to go somewhere: spending, saving, or sharing. Move the drops yourself. There's no recommended split and no gate you're told to favour.</p></div>
+        <div class="feat"><span class="i">📅</span><h3>Then live the week</h3><p>The week runs. Something you wanted comes up, and either the spending gate covers it or it doesn't. That's the whole lesson, and nobody has to say it out loud.</p></div>
+        <div class="feat"><span class="i">🧹</span><h3>Chores pay nothing</h3><p>Helping at home sits on the same board as the paid jobs and is worth <b>no drops</b> — on purpose. It's your home; you help because you live in it. The one place the app takes a position.</p></div>
+      </div>
+    </section>
+
+    <section id="access">
+      <div class="access">
+        <h2>Getting started</h2>
+        <p>Just sign in with your Google account and you're in — nothing to request or wait for. Questions? Reach out any time.</p>
+        <div class="cta-row" style="margin-top:0;">
+          <a class="btn btn-primary" href="https://vitta-dhaara.web.app">Sign in →</a>
+          <a class="btn btn-ghost" href="mailto:support.ythr@gmail.com">Email support.ythr@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="yr">2026</span> Vitta · Independently built for curious kids.</div>
+      <div class="disc">Calm, ad-free and private. No tracking or analytics — sign-in is used only for access control. Nothing a child does in a lab leaves their browser.</div>
+      <div class="fam">Part of a small family of learning apps for curious kids.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // Light/dark toggle. KEY is shared with the hub and the sibling landing pages — they're
+    // all one origin (yoggit.github.io), so a visitor's choice follows them across the family.
+    (function(){
+      var root = document.documentElement, KEY = 'apps-theme';
+      var btn = document.getElementById('themeToggle');
+      try{ var saved = localStorage.getItem(KEY);
+           if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved); }catch(e){}
+      btn.addEventListener('click', function(){
+        var cur = root.getAttribute('data-theme');
+        if(!cur) cur = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        var next = cur === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try{ localStorage.setItem(KEY, next); }catch(e){}
+      });
+    })();
+  </script>
+  <script>
+    /* Pronunciation speaker. Same policy as the apps: a Kannada voice reading the Kannada script, or
+       Indian English reading the respelling, or no button at all. Voices load async, hence the event. */
+    (function(){
+      var btn = document.getElementById("pronBtn");
+      if(!btn || !window.speechSynthesis) return;
+      var KN = "ವಿತ್ತ", SAY = "vit·tuh";
+      function pick(){
+        var v = speechSynthesis.getVoices() || [];
+        for(var i=0;i<v.length;i++) if(v[i].lang && v[i].lang.indexOf("kn") === 0) return {v:v[i], kn:true};
+        for(var j=0;j<v.length;j++) if(v[j].lang === "en-IN" || v[j].lang === "en_IN") return {v:v[j], kn:false};
+        return null;                       /* deliberately nothing else — see the note above */
+      }
+      function sync(){ btn.hidden = !pick(); }
+      sync();
+      speechSynthesis.addEventListener && speechSynthesis.addEventListener("voiceschanged", sync);
+      btn.addEventListener("click", function(){
+        var got = pick(); if(!got) return;
+        speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(got.kn ? KN : SAY.replace(/·/g, " "));
+        u.voice = got.v; u.lang = got.v.lang; u.rate = 0.85;
+        btn.classList.add("saying");
+        u.onend = u.onerror = function(){ btn.classList.remove("saying"); };
+        speechSynthesis.speak(u);
+      });
+    })();
+  </script>
+</body>
+</html>

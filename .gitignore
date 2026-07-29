@@ -1,0 +1,4 @@
+# Local notes are kept out of the repo (only README.md ships).
+*.md
+!README.md
+.DS_Store
