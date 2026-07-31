@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vitta — how money works</title>
-<meta name="description" content="Vitta is a private financial-literacy app for curious kids. Money you can pick up: every lab is a workbench where drops get earned, split, saved, spent and grown — and consequences arrive on their own. Nothing is scored. Three chapters from why money exists to owning a slice of a business. Offline, ad-free, no AI. Sign in with Google to start.">
+<meta name="description" content="Vitta is a private financial-literacy app for curious kids. Money you can pick up: every lab is a workbench where drops get earned, split, saved, spent and grown — and consequences arrive on their own. Nothing is scored. Five chapters, 25 labs, from why money exists to the records strangers keep about you. Offline, ad-free, no AI. Sign in with Google to start.">
 <meta name="theme-color" content="#0F1233" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F3F5FF" media="(prefers-color-scheme: light)">
 <meta property="og:title" content="Vitta — how money works">
@@ -123,7 +123,7 @@
   .feat p{margin:0; color:var(--muted); font-size:14px;}
 
   /* The ladder. Vitta's own home has NO numbering and NO locks — a child picks whatever sounds
-     interesting — so this mirrors that: three named chapters, no rung numbers, no "locked" state. */
+     interesting — so this mirrors that: named chapters, no rung numbers, no "locked" state. */
   .chap{margin-bottom:20px;}
   .chap-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:0 0 11px; padding-bottom:8px;
     border-bottom:1px solid var(--line);}
@@ -136,7 +136,10 @@
     color:var(--sage); background:var(--chip-bg);}
   .lab .i svg{width:20px; height:20px;}
   .lab .t{min-width:0; display:flex; flex-direction:column; line-height:1.25;}
-  .lab .t b{font-weight:600; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  /* Lab titles WRAP; they used to be nowrap+ellipsis, which was fine while the longest was
+     "Gold & the Broken Promise" and silently truncated "The Number Somebody Else Writes About You"
+     to "The Number Somebody Else …" once chapter 5 landed. A lab's name is not a detail. */
+  .lab .t b{font-weight:600; font-size:14.5px; line-height:1.3;}
   .lab .t span{font-size:12px; color:var(--muted);}
 
   /* Access callout */
@@ -225,7 +228,7 @@
 
     <section>
       <h2>The ladder</h2>
-      <p class="section-sub">Three chapters, from why money had to be invented to what a share in a business really is. <b>Every lab here is built and playable</b> — and there are no locks, so a child starts wherever it looks interesting.</p>
+      <p class="section-sub">Five chapters and 25 labs, from why money had to be invented to the number a stranger writes down about you. <b>Every lab here is built and playable</b> — and there are no locks, so a child starts wherever it looks interesting.</p>
 
       <div class="chap">
         <div class="chap-head"><h3>What money is</h3><span>Where it came from, and what makes it work at all.</span></div>
@@ -259,6 +262,25 @@
           <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.2h10M7 20.8h10"/><path d="M8 3.2c0 4 4 4.9 4 8.8s-4 4.8-4 8.8"/><path d="M16 3.2c0 4-4 4.9-4 8.8s4 4.8 4 8.8"/></svg></span><span class="t"><b>Future You</b><span>planning early</span></span></div>
           <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M12 12V3.6M12 12l7.3 4.2"/></svg></span><span class="t"><b>Own a Slice</b><span>investing</span></span></div>
           <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 19.4h17.2"/><path d="M4.6 15.4 9 10.6l3.4 3 5.8-6.6"/><path d="M14.6 6.4h4v4"/></svg></span><span class="t"><b>Patience Beats Panic</b><span>markets</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3.6c0 1.5-1.4 2.1-1.4 3.3a1.4 1.4 0 0 0 2.8 0C9.4 5.7 8 5.1 8 3.6z"/><path d="M16 6.6c0 1.5-1.4 2.1-1.4 3.3a1.4 1.4 0 0 0 2.8 0c0-1.2-1.4-1.8-1.4-3.3z"/><path d="M4.8 14.2h14.4v3.2a3.2 3.2 0 0 1-3.2 3.2H8a3.2 3.2 0 0 1-3.2-3.2z"/></svg></span><span class="t"><b>A Little, Every Time</b><span>regular saving</span></span></div>
+        </div>
+      </div>
+
+      <div class="chap">
+        <div class="chap-head"><h3>Writing it down</h3><span>Where it all went, and how you'd ever know for sure.</span></div>
+        <div class="labs">
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M5.6 3.4h10.2l3.2 3.2v14H5.6z"/><path d="M15.6 3.4v3.4H19"/><path d="M8.6 11h7M8.6 14.4h7M8.6 17.8h4.2"/></svg></span><span class="t"><b>The Drops You Forgot</b><span>the ledger</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4v17.2"/><path d="M8.4 7.6 5 11.2l3.4 3.6"/><path d="M15.6 16.4 19 12.8l-3.4-3.6"/></svg></span><span class="t"><b>Every Drop Comes From Somewhere</b><span>two sides</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2v15.6M7.4 19.8h9.2"/><path d="M4 8.4h16"/><path d="M4 8.4 2.2 13a2.4 2.4 0 0 0 3.6 0zM20 8.4l1.8 4.6a2.4 2.4 0 0 1-3.6 0z"/></svg></span><span class="t"><b>What's Actually Yours</b><span>what you have, what you owe</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 18.6h16.8"/><rect x="5.4" y="11" width="3.6" height="7.6" rx="1"/><rect x="10.2" y="6.6" width="3.6" height="12" rx="1"/><rect x="15" y="14.4" width="3.6" height="4.2" rx="1"/></svg></span><span class="t"><b>Busy Isn't the Same as Better</b><span>profit and cash</span></span></div>
+        </div>
+      </div>
+      <div class="chap">
+        <div class="chap-head"><h3>Out in the world</h3><span>What you owe, what protects you, and the records you didn't know were being kept.</span></div>
+        <div class="labs">
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><rect x="5.6" y="14.4" width="12.8" height="5.2" rx="1.1"/><rect x="5.6" y="9" width="12.8" height="5.2" rx="1.1"/><rect x="5.6" y="3.6" width="12.8" height="5.2" rx="1.1"/><path d="M8 17h8"/></svg></span><span class="t"><b>The Money You Never See</b><span>tax</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4 4.8 6.2v5.6c0 4.3 3 8.2 7.2 9.2 4.2-1 7.2-4.9 7.2-9.2V6.2z"/><path d="M9.2 12.1l2 2 3.6-4"/></svg></span><span class="t"><b>What's Worth Protecting</b><span>insurance</span></span></div>
+          <div class="lab"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.6" width="17.2" height="12.8" rx="2"/><path d="M3.4 9.8h17.2"/><path d="M6.8 13.4h5.4M6.8 15.8h3"/><circle cx="17" cy="14.6" r="2.2"/></svg></span><span class="t"><b>The Number Somebody Else Writes About You</b><span>credit history</span></span></div>
         </div>
       </div>
     </section>
